@@ -22,7 +22,12 @@ public class Sheep : MonoBehaviour
     {
 		myCollider = GetComponent<Collider>();
 		myRigidbody = GetComponent<Rigidbody>();
-		//audioSource = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
+
+		if (audioSource == null)
+		{
+			audioSource = gameObject.AddComponent<AudioSource>();
+		}
 	}
 
 	// Update is called once per frame
@@ -45,7 +50,7 @@ public class Sheep : MonoBehaviour
 		if (other.CompareTag("Hay") && !hitByHay) // 2
 		{
 			Destroy(other.gameObject); // 3
-			//audioSource.PlayOneShot(hayHitSound);
+			audioSource.PlayOneShot(hayHitSound);
 			HitByHay(); // 4
 		} else if (other.CompareTag("DropSheep"))
 		{
@@ -55,7 +60,7 @@ public class Sheep : MonoBehaviour
 
 	private void Drop()
 	{
-		//audioSource.PlayOneShot(dropSound);
+		audioSource.PlayOneShot(dropSound);
 		myRigidbody.isKinematic = false; // 1
 		myCollider.isTrigger = false; // 2
 		Destroy(gameObject, dropDestroyDelay); // 3
